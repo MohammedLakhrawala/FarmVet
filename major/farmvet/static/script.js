@@ -179,14 +179,26 @@ const state = {
 
 // Allow supported browsers to offer native PWA installation.
 const installBtn = document.getElementById("installBtn");
+const iosInstallHelp = document.getElementById("iosInstallHelp");
+const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+  (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+const isInstalled = window.matchMedia("(display-mode: standalone)").matches ||
+  navigator.standalone === true;
 let installPrompt = null;
+if (isIOS && !isInstalled) {
+  installBtn.textContent = "Add to Home Screen";
+  installBtn.hidden = false;
+}
 window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
   installPrompt = event;
   installBtn.hidden = false;
 });
 installBtn.addEventListener("click", async () => {
-  if (!installPrompt) return;
+  if (!installPrompt) {
+    if (isIOS) iosInstallHelp.hidden = !iosInstallHelp.hidden;
+    return;
+  }
   installPrompt.prompt();
   await installPrompt.userChoice;
   installPrompt = null;
