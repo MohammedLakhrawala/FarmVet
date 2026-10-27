@@ -11,6 +11,18 @@
   "theme_color": "#2C5530",
   "icons": [
     {
+      "src": "/static/icons/farmvet-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/static/icons/farmvet-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
       "src": "/static/icons/farmvet.svg",
       "sizes": "any",
       "type": "image/svg+xml",

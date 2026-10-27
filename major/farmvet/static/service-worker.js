@@ -1,10 +1,13 @@
-const CACHE_NAME = "farmvet-shell-v1";
+const CACHE_NAME = "farmvet-shell-v2";
 const APP_SHELL = [
   "/",
   "/static/manifest.webmanifest",
   "/static/style.css",
   "/static/script.js",
   "/static/icons/farmvet.svg",
+  "/static/icons/farmvet-180.png",
+  "/static/icons/farmvet-192.png",
+  "/static/icons/farmvet-512.png",
 ];
 
 self.addEventListener("install", (event) => {
