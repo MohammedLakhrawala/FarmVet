@@ -1,0 +1,20 @@
+{
+  "id": "/",
+  "name": "FarmVet - Livestock Health Screening",
+  "short_name": "FarmVet",
+  "description": "AI-assisted disease screening for cattle and goats.",
+  "lang": "en",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f6f7f2",
+  "theme_color": "#2C5530",
+  "icons": [
+    {
+      "src": "/static/icons/farmvet.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

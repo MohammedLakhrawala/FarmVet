@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2C5530">
+<link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}">
+<link rel="icon" href="{{ url_for('static', filename='icons/farmvet.svg') }}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/farmvet.svg') }}">
+<title>FarmVet — Livestock Health Screening</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<a class="skip-link" href="#screening" data-i18n="skip">Skip to screening</a>
+
+  <div class="page">
+    <header class="header">
+      <div class="header-top">
+        <div class="brand">
+          <span class="brand-mark">🌾</span>
+          <span class="brand-name">FarmVet<span class="brand-dot">.</span></span>
+        </div>
+        <nav class="header-nav"><a href="#screening" data-i18n="screening">Health screening</a><a href="#guide" data-i18n="photoGuide">Photo guide</a></nav>
+        <button id="installBtn" class="install-btn" type="button" hidden>Install app</button>
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="hi">हिं</button>
+        </div>
+      </div>
+      <p class="tagline" data-i18n="tagline">AI-assisted disease screening for livestock</p>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div><p class="eyebrow" data-i18n="eyebrow">A LITTLE CARE GOES A LONG WAY</p>
+        <h1 data-i18n="headline">Better care starts with a closer look.</h1>
+        <p class="intro-copy" data-i18n="intro">A simple photo can help you take the next step in caring for your cattle and goats.</p></div>
+        <div class="intro-note"><span aria-hidden="true">✳</span><p data-i18n="introNote">Your livestock. Your care. A helping hand from AI.</p></div>
+      </section>
+      <div class="workspace">
+      <section class="card" id="screening" aria-labelledby="screeningTitle">
+      <div class="card-heading"><div><p class="eyebrow" data-i18n="newScreening">NEW SCREENING</p><h2 id="screeningTitle" data-i18n="screeningTitle">Let's check on your animal</h2></div><span class="step-badge">01 — 03</span></div>
+      <p class="field-label"><span>01</span> <span data-i18n="selectAnimal">Choose your animal</span></p>
+      <div class="animal-toggle" role="group" aria-label="Select animal">
+        <button class="toggle-btn active" data-animal="cattle" aria-pressed="true">
+          <span class="toggle-icon">🐄</span> <span data-i18n="cattle">Cattle</span>
+        </button>
+        <button class="toggle-btn" data-animal="goat" aria-pressed="false">
+          <span class="toggle-icon">🐐</span> <span data-i18n="goat">Goat</span>
+        </button>
+      </div>
+
+      <p class="field-label"><span>02</span> <span data-i18n="addPhoto">Add a clear photo</span></p>
+      <div class="upload-zone" id="uploadZone" role="button" tabindex="0" aria-label="Upload or replace animal photo">
+        <input type="file" id="fileInput" accept="image/*" hidden>
+        <div id="uploadPrompt">
+          <div class="upload-icon">📷</div>
+          <p class="upload-text"><strong data-i18n="uploadTitle">Click to upload</strong> <span data-i18n="uploadOr">or drag an image here</span></p>
+          <p class="upload-hint" data-i18n="uploadHint">JPG or PNG · a clear photo of the animal's skin/affected area works best</p>
+        </div>
+        <img id="previewImg" class="preview-img" hidden alt="Preview of uploaded image">
+        <video id="cameraVideo" class="camera-video" hidden autoplay playsinline></video>
+      </div>
+
+      <div class="action-row">
+        <button id="cameraBtn" class="secondary-btn">
+          <span class="btn-icon">📸</span> <span data-i18n="useCamera">Use Camera</span>
+        </button>
+        <button id="captureBtn" class="secondary-btn" hidden>
+          <span class="btn-icon">⏺</span> <span data-i18n="capture">Capture</span>
+        </button>
+      </div>
+      <canvas id="captureCanvas" hidden></canvas>
+
+      <p class="field-label"><span>03</span> <span data-i18n="getResults">Review the screening</span></p>
+      <button id="predictBtn" class="predict-btn" disabled data-i18n="analyze">Analyze Image</button>
+
+      <div id="resultPanel" class="result-panel" aria-live="polite" hidden>
+        <div class="result-top">
+          <span class="result-label" id="resultLabel"></span>
+          <span class="result-confidence" id="resultConfidence"></span>
+        </div>
+        <div class="result-bars" id="resultBars"></div>
+
+        <div class="precautions-box" id="precautionsBox">
+          <p class="precautions-title" id="precautionsTitle"></p>
+          <ul class="precautions-list" id="precautionsList"></ul>
+        </div>
+      </div>
+
+      <div id="errorPanel" class="error-panel" role="alert" hidden></div>
+
+      <div id="loadingPanel" class="loading-panel" role="status" hidden>
+        <div class="spinner"></div>
+        <span data-i18n="analyzing">Analyzing image…</span>
+      </div>
+      </section>
+      <aside id="guide" class="guide" aria-labelledby="guideTitle">
+        <div class="guide-art" aria-hidden="true"><span class="sun"></span><span class="hill hill-back"></span><span class="hill hill-front"></span><span class="animal-art">🐄</span><span class="grass">⌇ ⌇ ⌇</span></div>
+        <div class="guide-content"><p class="eyebrow" data-i18n="photoGuide">PHOTO GUIDE</p><h2 id="guideTitle" data-i18n="guideTitle">A clearer photo.<br>A better starting point.</h2>
+        <ol class="tips"><li><strong data-i18n="tip1Title">Find natural light</strong><p data-i18n="tip1">Take your photo in a bright area without harsh shadows.</p></li><li><strong data-i18n="tip2Title">Focus on the affected area</strong><p data-i18n="tip2">Keep the skin or visible concern clear and in focus.</p></li><li><strong data-i18n="tip3Title">One animal at a time</strong><p data-i18n="tip3">Avoid busy backgrounds and keep the camera steady.</p></li></ol></div>
+        <div class="guide-bottom"><span aria-hidden="true">＋</span><p data-i18n="guideNote">Use the screening as a starting point for a conversation with your veterinarian.</p></div>
+      </aside>
+      </div>
+    </main>
+
+    <footer class="footer"><span class="footer-brand">FarmVet</span>
+      <p data-i18n="disclaimer">Demo build · Model trained on limited data — not a substitute for veterinary diagnosis.</p>
+    </footer>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
