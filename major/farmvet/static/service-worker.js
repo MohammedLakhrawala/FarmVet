@@ -1,4 +1,4 @@
-const CACHE_NAME = "farmvet-shell-v3";
+const CACHE_NAME = "farmvet-shell-v4";
 const APP_SHELL = [
   "/",
   "/static/manifest.webmanifest",

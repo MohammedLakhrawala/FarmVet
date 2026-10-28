@@ -11,7 +11,7 @@ const translations = {
     capture: "Capture",
     analyze: "Analyze Image",
     analyzing: "Analyzing image…",
-    confidence: "confidence",
+    confidence: "model score",
     cameraError: "Could not access camera. Please check permissions.",
     serverError: "Could not reach the server. Make sure app.py is running.",
     fileTypeError: "Please upload an image file (JPG or PNG).",
@@ -49,6 +49,7 @@ Object.assign(translations.en, {
   guideNote: "Use the screening as a starting point for a conversation with your veterinarian."
 });
 Object.assign(translations.hi, {
+  confidence: "मॉडल स्कोर",
   skip: "जांच पर जाएं", screening: "स्वास्थ्य जांच", photoGuide: "फोटो गाइड",
   eyebrow: "थोड़ी देखभाल, बड़ा बदलाव", headline: "बेहतर देखभाल की शुरुआत, एक नज़दीकी नज़र से।",
   intro: "एक साधारण फोटो आपकी गायों और बकरियों की देखभाल में अगला कदम लेने में मदद कर सकती है।",
@@ -59,6 +60,54 @@ Object.assign(translations.hi, {
   tip2: "त्वचा या प्रभावित हिस्से को साफ और फोकस में रखें।", tip3Title: "एक बार में एक पशु",
   tip3: "सादी पृष्ठभूमि चुनें और कैमरा स्थिर रखें।",
   guideNote: "इस जांच के आधार पर अपने पशु चिकित्सक से बातचीत शुरू करें।"
+});
+
+Object.assign(translations.en, {
+  historyLink: "History", historyEyebrow: "YOUR SCREENINGS", historyTitle: "Screening history",
+  historyStorageNote: "Records stay in this browser on this device. Photos are not saved.",
+  historyEmpty: "Completed screenings will appear here.", clearHistory: "Clear history",
+  confirmClearHistory: "Clear all saved screenings from this browser?", historyStorageError: "History could not be saved in this browser.",
+  viewReport: "View report", openReport: "Open report", deleteRecord: "Delete",
+  scoreNote: "Scores are model outputs and have not been calibrated as diagnostic confidence.",
+  visualHighlight: "Visual model highlight",
+  gradcamNote: "Highlighted areas show image features that influenced the model score. This is an exploratory visualization, not a diagnosis.",
+  photoRequirements: "Use JPEG, PNG, or WebP under 10 MB. Minimum image size: 224 × 224 pixels.",
+  printReport: "Print / Save as PDF", close: "Close", reportTitle: "FarmVet screening report",
+  reportContext: "Use this summary when discussing the animal's care with a veterinarian.",
+  animal: "Animal", recorded: "Recorded", modelScores: "Model scores", precautionTitle: "Suggested next steps",
+  unknownPrediction: "Unknown result",
+  modelTransparency: "About the models and evaluation",
+  modelArchitecture: "FarmVet uses separate MobileNetV2-based image classifiers for cattle and goats. Images are resized to 224 × 224 before inference.",
+  evaluationPending: "An independent labeled test set is not included in this project yet, so accuracy and per-class metrics are not reported.",
+  modelCardRepo: "The repository includes MODEL_CARD.md and evaluate_models.py for documenting the models and evaluating them on a held-out test set.",
+  supportedImageTypes: "Choose a JPEG, PNG, or WebP image.",
+  imageTooLarge: "Choose an image smaller than 10 MB.",
+  invalidImage: "This file could not be read as an image.",
+  imageTooSmall: "Choose an image that is at least 224 by 224 pixels.",
+});
+
+Object.assign(translations.hi, {
+  historyLink: "जाँच इतिहास", historyEyebrow: "आपकी जाँचें", historyTitle: "जाँच इतिहास",
+  historyStorageNote: "रिकॉर्ड केवल इसी डिवाइस और ब्राउज़र में सहेजे जाते हैं। फ़ोटो नहीं सहेजी जातीं।",
+  historyEmpty: "पूरी की गई जाँचें यहाँ दिखाई देंगी।", clearHistory: "इतिहास मिटाएँ",
+  confirmClearHistory: "इस ब्राउज़र से सभी सहेजी गई जाँचें मिटाएँ?",
+  historyStorageError: "इस ब्राउज़र में इतिहास सहेजा नहीं जा सका।",
+  viewReport: "रिपोर्ट देखें", openReport: "रिपोर्ट खोलें", deleteRecord: "हटाएँ",
+  scoreNote: "स्कोर मॉडल के आउटपुट हैं; इन्हें रोग-निदान की विश्वसनीयता के रूप में कैलिब्रेट नहीं किया गया है।",
+  visualHighlight: "मॉडल का दृश्य संकेत",
+  gradcamNote: "हाइलाइट किए गए क्षेत्र वे छवि विशेषताएँ दिखाते हैं जिन्होंने मॉडल स्कोर को प्रभावित किया। यह केवल खोजपरक दृश्य है, निदान नहीं।",
+  photoRequirements: "JPEG, PNG या WebP फ़ोटो चुनें (10 MB से कम; कम से कम 224 × 224 पिक्सेल)।",
+  printReport: "प्रिंट / PDF के रूप में सहेजें", close: "बंद करें", reportTitle: "FarmVet जाँच रिपोर्ट",
+  reportContext: "पशु की देखभाल के बारे में पशु चिकित्सक से बात करते समय इस सारांश का उपयोग करें।",
+  animal: "पशु", recorded: "समय", modelScores: "मॉडल स्कोर", precautionTitle: "सुझाए गए अगले कदम",
+  supportedImageTypes: "JPEG, PNG या WebP फ़ोटो चुनें।",
+  imageTooLarge: "10 MB से छोटी फ़ोटो चुनें।",
+  invalidImage: "यह फ़ाइल छवि के रूप में पढ़ी नहीं जा सकी।",
+  imageTooSmall: "कम से कम 224 × 224 पिक्सेल की फ़ोटो चुनें।",
+  modelTransparency: "मॉडल और मूल्यांकन के बारे में",
+  modelArchitecture: "FarmVet गाय और बकरी के लिए अलग-अलग MobileNetV2-आधारित छवि क्लासिफ़ायर इस्तेमाल करता है। अनुमान से पहले छवि 224 × 224 पिक्सेल की जाती है।",
+  evaluationPending: "इस परियोजना में अभी स्वतंत्र लेबल वाला टेस्ट सेट शामिल नहीं है, इसलिए सटीकता और प्रति-वर्ग मेट्रिक्स रिपोर्ट नहीं किए गए हैं।",
+  modelCardRepo: "रिपॉज़िटरी में मॉडल दस्तावेज़ और अलग रखे गए टेस्ट सेट पर मूल्यांकन के लिए MODEL_CARD.md तथा evaluate_models.py शामिल हैं।",
 });
 
 // Class label -> display name + precautions, per language.
@@ -172,9 +221,11 @@ const state = {
   animal: "cattle",
   lang: "en",
   file: null,
+  previewUrl: null,
   cameraStream: null,
   lastData: null,
   predictionVersion: 0,
+  currentRecordId: null,
 };
 
 // Allow supported browsers to offer native PWA installation.
@@ -235,15 +286,160 @@ const precautionsTitle = document.getElementById("precautionsTitle");
 const precautionsList = document.getElementById("precautionsList");
 const errorPanel = document.getElementById("errorPanel");
 const loadingPanel = document.getElementById("loadingPanel");
+const gradcamBox = document.getElementById("gradcamBox");
+const gradcamImage = document.getElementById("gradcamImage");
+const historyList = document.getElementById("historyList");
+const historyEmpty = document.getElementById("historyEmpty");
+const historyNote = document.querySelector(".history-note");
+const clearHistoryBtn = document.getElementById("clearHistoryBtn");
+const reportDialog = document.getElementById("reportDialog");
+const reportSheet = document.getElementById("reportSheet");
+const currentReportBtn = document.getElementById("currentReportBtn");
+const closeReportBtn = document.getElementById("closeReportBtn");
+const printReportBtn = document.getElementById("printReportBtn");
 const toggleBtns = document.querySelectorAll(".toggle-btn");
 const langBtns = document.querySelectorAll(".lang-btn");
+
+const HISTORY_KEY = "farmvet.screenings.v1";
+
+function translate(key) {
+  return translations[state.lang][key] || translations.en[key] || key;
+}
+
+function readHistory() {
+  try {
+    const records = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+    return Array.isArray(records) ? records.filter((record) => record && record.id && record.top_prediction) : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+let historyRecords = readHistory();
+
+function persistHistory() {
+  try {
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(historyRecords));
+    historyNote.textContent = translate("historyStorageNote");
+    return true;
+  } catch (error) {
+    historyNote.textContent = translate("historyStorageError");
+    return false;
+  }
+}
+
+function storeScreening(data) {
+  const record = {
+    id: (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    createdAt: new Date().toISOString(),
+    animal: data.animal,
+    top_prediction: data.top_prediction,
+    all_predictions: data.all_predictions,
+  };
+  historyRecords.unshift(record);
+  historyRecords = historyRecords.slice(0, 50);
+  persistHistory();
+  renderHistory();
+  return record;
+}
+
+function makeTextElement(tag, text, className) {
+  const element = document.createElement(tag);
+  element.textContent = text;
+  if (className) element.className = className;
+  return element;
+}
+
+function formatRecordDate(value) {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleString(state.lang === "hi" ? "hi-IN" : "en-IN");
+}
+
+function renderHistory() {
+  historyList.replaceChildren();
+  historyEmpty.hidden = historyRecords.length > 0;
+  clearHistoryBtn.hidden = historyRecords.length === 0;
+
+  historyRecords.forEach((record) => {
+    const card = document.createElement("article");
+    card.className = "history-card";
+    const summary = document.createElement("div");
+    summary.className = "history-summary";
+    const animal = record.animal === "goat" ? translate("goat") : translate("cattle");
+    const result = getDiseaseDisplay(record.top_prediction.label, state.lang).name;
+    summary.append(
+      makeTextElement("strong", `${animal} · ${result}`, "history-result"),
+      makeTextElement("span", formatRecordDate(record.createdAt), "history-date"),
+      makeTextElement("span", `${(record.top_prediction.confidence * 100).toFixed(1)}% ${translate("confidence")}`, "history-score")
+    );
+    const actions = document.createElement("div");
+    actions.className = "history-actions";
+    const openButton = makeTextElement("button", translate("openReport"), "secondary-btn");
+    openButton.type = "button";
+    openButton.addEventListener("click", () => openReport(record));
+    const deleteButton = makeTextElement("button", translate("deleteRecord"), "text-btn");
+    deleteButton.type = "button";
+    deleteButton.addEventListener("click", () => {
+      historyRecords = historyRecords.filter((item) => item.id !== record.id);
+      persistHistory();
+      renderHistory();
+      if (state.currentRecordId === record.id) state.currentRecordId = null;
+    });
+    actions.append(openButton, deleteButton);
+    card.append(summary, actions);
+    historyList.append(card);
+  });
+}
+
+function openReport(record) {
+  reportSheet.replaceChildren();
+  reportSheet.append(
+    makeTextElement("p", "FarmVet · Livestock Health Screening", "report-brand"),
+    makeTextElement("h1", translate("reportTitle"), "report-title"),
+    makeTextElement("p", translate("reportContext"), "report-context")
+  );
+
+  const details = document.createElement("dl");
+  details.className = "report-details";
+  const detailPairs = [
+    [translate("animal"), record.animal === "goat" ? translate("goat") : translate("cattle")],
+    [translate("recorded"), formatRecordDate(record.createdAt)],
+  ];
+  detailPairs.forEach(([label, value]) => {
+    details.append(makeTextElement("dt", label), makeTextElement("dd", value));
+  });
+  reportSheet.append(details, makeTextElement("h2", translate("modelScores"), "report-section-title"));
+
+  const table = document.createElement("table");
+  table.className = "report-table";
+  const body = document.createElement("tbody");
+  (record.all_predictions || [record.top_prediction]).forEach((prediction) => {
+    const row = document.createElement("tr");
+    row.append(
+      makeTextElement("th", getDiseaseDisplay(prediction.label, state.lang).name),
+      makeTextElement("td", `${(prediction.confidence * 100).toFixed(1)}%`)
+    );
+    body.append(row);
+  });
+  table.append(body);
+  reportSheet.append(table);
+
+  const topInfo = getDiseaseDisplay(record.top_prediction.label, state.lang);
+  reportSheet.append(makeTextElement("h2", translate("precautionTitle"), "report-section-title"));
+  const precautions = document.createElement("ul");
+  topInfo.precautions.forEach((item) => precautions.append(makeTextElement("li", item)));
+  reportSheet.append(precautions);
+  reportSheet.append(makeTextElement("p", translate("scoreNote"), "report-footnote"));
+  if (!reportDialog.open) reportDialog.showModal();
+}
 
 // ─── i18n rendering ──────────────────────────────────────────────────────────
 function applyTranslations() {
   const t = translations[state.lang];
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
-    if (t[key]) el.textContent = t[key];
+    const value = t[key] || translations.en[key];
+    if (value) el.textContent = value;
   });
   document.documentElement.lang = state.lang;
 }
@@ -255,6 +451,7 @@ langBtns.forEach((btn) => {
     state.lang = btn.dataset.lang;
     langBtns.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
     applyTranslations();
+    renderHistory();
     if (!resultPanel.hidden && state.lastData) {
       showResult(state.lastData);
     }
@@ -308,25 +505,53 @@ uploadZone.addEventListener("drop", (e) => {
 fileInput.addEventListener("change", (e) => {
   const file = e.target.files[0];
   if (file) handleFile(file);
+  // Let the user select the same file again after replacing or correcting it.
+  e.target.value = "";
 });
 
-function handleFile(file) {
-  if (!file.type.startsWith("image/")) {
-    showError(translations[state.lang].fileTypeError);
+async function handleFile(file) {
+  const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+  if (!allowedTypes.includes(file.type)) {
+    showError(translate("supportedImageTypes"));
     return;
   }
+  if (file.size > 10 * 1024 * 1024) {
+    showError(translate("imageTooLarge"));
+    return;
+  }
+
+  const dimensions = await new Promise((resolve, reject) => {
+    const objectUrl = URL.createObjectURL(file);
+    const image = new Image();
+    image.onload = () => {
+      URL.revokeObjectURL(objectUrl);
+      resolve({ width: image.naturalWidth, height: image.naturalHeight });
+    };
+    image.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error("invalid-image"));
+    };
+    image.src = objectUrl;
+  }).catch(() => null);
+  if (!dimensions) {
+    showError(translate("invalidImage"));
+    return;
+  }
+  if (dimensions.width < 224 || dimensions.height < 224) {
+    showError(translate("imageTooSmall"));
+    return;
+  }
+
   stopCamera();
   state.file = file;
   hideError();
   hideResult();
 
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    previewImg.src = e.target.result;
-    previewImg.hidden = false;
-    uploadPrompt.hidden = true;
-  };
-  reader.readAsDataURL(file);
+  if (state.previewUrl) URL.revokeObjectURL(state.previewUrl);
+  state.previewUrl = URL.createObjectURL(file);
+  previewImg.src = state.previewUrl;
+  previewImg.hidden = false;
+  uploadPrompt.hidden = true;
 
   predictBtn.disabled = false;
 }
@@ -360,8 +585,14 @@ captureBtn.addEventListener("click", () => {
   ctx.drawImage(cameraVideo, 0, 0, w, h);
 
   captureCanvas.toBlob((blob) => {
+    if (!blob || blob.size > 10 * 1024 * 1024) {
+      showError(translate("imageTooLarge"));
+      return;
+    }
     const file = new File([blob], "camera_capture.jpg", { type: "image/jpeg" });
     state.file = file;
+    if (state.previewUrl) URL.revokeObjectURL(state.previewUrl);
+    state.previewUrl = null;
     previewImg.src = captureCanvas.toDataURL("image/jpeg");
     previewImg.hidden = false;
     predictBtn.disabled = false;
@@ -399,7 +630,7 @@ predictBtn.addEventListener("click", async () => {
       method: "POST",
       body: formData,
     });
-    const data = await res.json();
+    const data = await res.json().catch(() => ({}));
     if (predictionVersion !== state.predictionVersion) return;
 
     loadingPanel.hidden = true;
@@ -411,6 +642,8 @@ predictBtn.addEventListener("click", async () => {
     }
 
     state.lastData = data;
+    const record = storeScreening(data);
+    state.currentRecordId = record.id;
     showResult(data);
   } catch (err) {
     if (predictionVersion !== state.predictionVersion) return;
@@ -427,7 +660,11 @@ function showResult(data) {
   const topDisplay = getDiseaseDisplay(top.label, lang);
 
   resultLabel.textContent = topDisplay.name;
-  resultConfidence.textContent = `${(top.confidence * 100).toFixed(1)}% ${translations[lang].confidence}`;
+  resultConfidence.textContent = `${(top.confidence * 100).toFixed(1)}% ${translate("confidence")}`;
+  gradcamBox.hidden = !data.gradcam_overlay;
+  gradcamImage.hidden = !data.gradcam_overlay;
+  if (data.gradcam_overlay) gradcamImage.src = data.gradcam_overlay;
+  else gradcamImage.removeAttribute("src");
 
   resultBars.innerHTML = "";
   data.all_predictions.forEach((pred, i) => {
@@ -480,6 +717,10 @@ function hideResult() {
   resultLabel.textContent = "";
   resultConfidence.textContent = "";
   resultBars.innerHTML = "";
+  gradcamBox.hidden = true;
+  gradcamImage.hidden = true;
+  gradcamImage.removeAttribute("src");
+  state.currentRecordId = null;
   precautionsTitle.textContent = "";
   precautionsList.innerHTML = "";
   loadingPanel.hidden = true;
@@ -496,7 +737,24 @@ function hideError() {
 }
 
 // ─── Init ────────────────────────────────────────────────────────────────────
+currentReportBtn.addEventListener("click", () => {
+  const record = historyRecords.find((item) => item.id === state.currentRecordId);
+  if (record) openReport(record);
+});
+
+clearHistoryBtn.addEventListener("click", () => {
+  if (!window.confirm(translate("confirmClearHistory"))) return;
+  historyRecords = [];
+  state.currentRecordId = null;
+  persistHistory();
+  renderHistory();
+});
+
+closeReportBtn.addEventListener("click", () => reportDialog.close());
+printReportBtn.addEventListener("click", () => window.print());
+
 applyTranslations();
+renderHistory();
 
 langBtns.forEach((btn) => btn.setAttribute("aria-pressed", String(btn.dataset.lang === state.lang)));
 window.addEventListener("pagehide", stopCamera);

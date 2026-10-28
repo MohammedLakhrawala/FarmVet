@@ -22,7 +22,7 @@
           <span class="brand-mark">🌾</span>
           <span class="brand-name">FarmVet<span class="brand-dot">.</span></span>
         </div>
-        <nav class="header-nav"><a href="#screening" data-i18n="screening">Health screening</a><a href="#guide" data-i18n="photoGuide">Photo guide</a></nav>
+        <nav class="header-nav"><a href="#screening" data-i18n="screening">Health screening</a><a href="#history" data-i18n="historyLink">Screening history</a><a href="#guide" data-i18n="photoGuide">Photo guide</a></nav>
         <div class="lang-toggle" role="group" aria-label="Language">
           <button class="lang-btn active" data-lang="en">EN</button>
           <button class="lang-btn" data-lang="hi">हिं</button>
@@ -57,12 +57,13 @@
 
       <p class="field-label"><span>02</span> <span data-i18n="addPhoto">Add a clear photo</span></p>
       <div class="upload-zone" id="uploadZone" role="button" tabindex="0" aria-label="Upload or replace animal photo">
-        <input type="file" id="fileInput" accept="image/*" hidden>
+        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" hidden>
         <div id="uploadPrompt">
           <div class="upload-icon">📷</div>
           <p class="upload-text"><strong data-i18n="uploadTitle">Click to upload</strong> <span data-i18n="uploadOr">or drag an image here</span></p>
           <p class="upload-hint" data-i18n="uploadHint">JPG or PNG · a clear photo of the animal's skin/affected area works best</p>
         </div>
+        <p class="upload-hint quality-hint" data-i18n="photoRequirements">Use JPEG, PNG, or WebP under 10 MB. Minimum image size: 224 × 224 pixels.</p>
         <img id="previewImg" class="preview-img" hidden alt="Preview of uploaded image">
         <video id="cameraVideo" class="camera-video" hidden autoplay playsinline></video>
       </div>
@@ -84,8 +85,16 @@
         <div class="result-top">
           <span class="result-label" id="resultLabel"></span>
           <span class="result-confidence" id="resultConfidence"></span>
+          <button id="currentReportBtn" class="secondary-btn report-button" type="button" data-i18n="viewReport">View report</button>
         </div>
+        <p class="score-note" data-i18n="scoreNote">Scores are model outputs and have not been calibrated as diagnostic confidence.</p>
         <div class="result-bars" id="resultBars"></div>
+
+        <div class="gradcam-box" id="gradcamBox" hidden>
+          <p class="precautions-title" data-i18n="visualHighlight">Visual model highlight</p>
+          <p class="gradcam-note" data-i18n="gradcamNote">Highlighted areas show image features that influenced the model score. This is an exploratory visualization, not a diagnosis.</p>
+          <img id="gradcamImage" class="gradcam-image" alt="Grad-CAM model highlight overlay">
+        </div>
 
         <div class="precautions-box" id="precautionsBox">
           <p class="precautions-title" id="precautionsTitle"></p>
@@ -107,6 +116,33 @@
         <div class="guide-bottom"><span aria-hidden="true">＋</span><p data-i18n="guideNote">Use the screening as a starting point for a conversation with your veterinarian.</p></div>
       </aside>
       </div>
+
+      <section id="history" class="history-section" aria-labelledby="historyTitle">
+        <div class="section-heading">
+          <div><p class="eyebrow" data-i18n="historyEyebrow">YOUR SCREENINGS</p><h2 id="historyTitle" data-i18n="historyTitle">Screening history</h2></div>
+          <button id="clearHistoryBtn" class="secondary-btn clear-history-btn" type="button" data-i18n="clearHistory" hidden>Clear history</button>
+        </div>
+        <p class="history-note" data-i18n="historyStorageNote">Saved on this device and browser only. Photos are not saved.</p>
+        <p id="historyEmpty" class="history-empty" data-i18n="historyEmpty">Completed screenings will appear here.</p>
+        <div id="historyList" class="history-list"></div>
+      </section>
+
+      <details class="model-info">
+        <summary data-i18n="modelTransparency">About the models and evaluation</summary>
+        <div class="model-info-content">
+          <p data-i18n="modelArchitecture">FarmVet uses separate MobileNetV2-based image classifiers for cattle and goats. Images are resized to 224 × 224 before inference.</p>
+          <p data-i18n="evaluationPending">An independent labeled test set is not included in this project yet, so accuracy and per-class metrics are not reported.</p>
+          <p data-i18n="modelCardRepo">The repository includes MODEL_CARD.md and evaluate_models.py for documenting the models and evaluating them on a held-out test set.</p>
+        </div>
+      </details>
+
+      <dialog id="reportDialog" class="report-dialog" aria-labelledby="reportTitle">
+        <div class="report-actions">
+          <button id="closeReportBtn" class="secondary-btn" type="button" data-i18n="close">Close</button>
+          <button id="printReportBtn" class="predict-btn" type="button" data-i18n="printReport">Print / Save as PDF</button>
+        </div>
+        <article id="reportSheet" class="report-sheet"></article>
+      </dialog>
     </main>
 
     <footer class="footer"><span class="footer-brand">FarmVet</span>

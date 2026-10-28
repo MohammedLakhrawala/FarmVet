@@ -37,3 +37,33 @@ That's it. Open **http://localhost:5000** in your browser.
 - FarmVet is a Progressive Web App. Open the deployed site in a supported mobile browser and use its **Install app** prompt or browser menu's **Add to Home Screen** option.
 - Camera access and service workers require a secure context: use `localhost` for local development, and HTTPS when hosting the app for phones.
 - The app shell can open offline after it has been loaded once. Disease screening still needs an internet connection to reach the Flask server and TensorFlow models.
+
+## Screening history and reports
+- Completed screenings are saved in browser local storage on the current device. Uploaded photos are not saved in history.
+- Use **View report** or a history record's **Open report** action, then choose **Print / Save as PDF** to create a shareable report.
+- Clearing browser data or changing browsers/devices removes access to those local records.
+
+## Model evaluation
+The repository currently has no labeled held-out test images, so no accuracy claim is published. Read [MODEL_CARD.md](MODEL_CARD.md) for known model details and limitations.
+
+To evaluate both models, create a test-only dataset with class folder names matching the class-index files:
+
+```text
+evaluation_data/test/
+  cattle/foot-and-mouth/
+  cattle/healthy/
+  cattle/lumpy/
+  goat/healthy/
+  goat/orf/
+```
+
+Keep this data separate from training and validation, and keep photos from the same animal or farm in one split where you have those identifiers. Then run:
+
+```bash
+python evaluate_models.py
+```
+
+The script writes per-class precision, recall, F1, support, accuracy, and confusion matrices into `evaluation_results/`. Do not present these results as independent test performance if the images were used during training or model selection.
+
+## Photo input checks
+Uploads must be JPEG, PNG, or WebP, under 10 MB, and at least 224 × 224 pixels. FarmVet applies EXIF orientation before resizing the image for inference.
