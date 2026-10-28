@@ -63,7 +63,8 @@ def get_model_and_classes(animal: str):
             )
 
         print(f"Loading {animal} model from {model_path} ...")
-        _loaded_models[animal] = tf.keras.models.load_model(model_path)
+        # This app only performs inference; skip restoring the training optimizer/loss.
+        _loaded_models[animal] = tf.keras.models.load_model(model_path, compile=False)
 
         with open(classes_path) as f:
             class_indices = json.load(f)
@@ -111,6 +112,9 @@ def predict():
         model, idx_to_class = get_model_and_classes(animal)
     except FileNotFoundError as e:
         return jsonify({"error": str(e)}), 500
+    except Exception:
+        app.logger.exception("Failed to load the %s model", animal)
+        return jsonify({"error": f"Could not load the {animal} model. Check the server logs."}), 500
 
     try:
         x = preprocess_image(image_file.stream)
